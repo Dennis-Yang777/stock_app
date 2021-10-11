@@ -1,0 +1,7 @@
+<h1>Welcome to download stock list!</h1>
+
+<%= form_with url: stock_downloads_path, method: 'POST' do |f| %>
+	日期：
+	<%= date_field_tag :date %>
+	<%= f.submit "輸入日期" %>
+<% end %>
