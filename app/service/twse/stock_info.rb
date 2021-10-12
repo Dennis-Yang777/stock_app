@@ -1,6 +1,7 @@
 module Twse
 	class StockInfo
 		attr_accessor :data
+
 		def initialize(date)
 			require "down"
 

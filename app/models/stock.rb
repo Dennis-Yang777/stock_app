@@ -7,4 +7,5 @@ class Stock < ApplicationRecord
   scope :latest_transaction_date, -> (date = nil) do
     date = date ? date.to_date : DailyQuote.latest_transaction_date
     self.joins(:daily_quotes).where(daily_quotes: { transaction_date: date })
+  end
 end
