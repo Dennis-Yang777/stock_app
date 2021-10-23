@@ -24,34 +24,36 @@ module Twse
 
 				@dataframe = Daru::DataFrame.new(CSV.parse(@data))
 				@dataframe.delete_vectors(0)
-				@dataframe.map_vectors{ |row|
-					if !Stock.exists?(code: row[0])
-						stock = Stock.create(
-							code: row[0],
-							name: row[1]
+				ActiveRecord::Base.transaction do
+					@dataframe.map_vectors{ |row|
+						if !Stock.exists?(code: row[0])
+							stock = Stock.create(
+								code: row[0],
+								name: row[1]
+							)
+						else
+							stock = Stock.find_by(code: row[0])
+						end
+	
+						stock.daily_quotes.create(
+							transaction_date: date,
+							trade_volume: row[2],
+							number_of_transactions: row[3],
+							trade_price: row[4],
+							opening_price: row[5],
+							highest_price: row[6],
+							lowest_price: row[7],
+							closing_price: row[8],
+							ups_and_downs: row[9],
+							price_difference: row[10],
+							last_best_bid_price: row[11],
+							last_best_bid_volume: row[12],
+							last_best_ask_price: row[13],
+							last_best_ask_volume: row[14],
+							price_earning_ratio: row[15]
 						)
-					else
-						stock = Stock.find_by(code: row[0])
-					end
-
-					stock.daily_quotes.create(
-						transaction_date: date,
-						trade_volume: row[2],
-						number_of_transactions: row[3],
-						trade_price: row[4],
-						opening_price: row[5],
-						highest_price: row[6],
-						lowest_price: row[7],
-						closing_price: row[8],
-						ups_and_downs: row[9],
-						price_difference: row[10],
-						last_best_bid_price: row[11],
-						last_best_bid_volume: row[12],
-						last_best_ask_price: row[13],
-						last_best_ask_volume: row[14],
-						price_earning_ratio: row[15]
-					)
-				}
+					}
+				end
 				"Save into db."
 			else
 				"Data already exists"
