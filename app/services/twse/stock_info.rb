@@ -24,18 +24,14 @@ module Twse
 
 				@dataframe = Daru::DataFrame.new(CSV.parse(@data))
 				@dataframe.delete_vectors(0)
+				# 每一天的資料用一次transation包住
 				ActiveRecord::Base.transaction do
 					@dataframe.map_vectors{ |row|
-						if !Stock.exists?(code: row[0])
-							stock = Stock.create(
-								code: row[0],
-								name: row[1]
-							)
-						else
-							stock = Stock.find_by(code: row[0])
-						end
+						Stock.exists?(code: row[0]) ? 
+						stock = Stock.find_by(code: row[0]) : 
+						stock = Stock.create(code: row[0], name: row[1])
 	
-						stock.daily_quotes.create(
+						stock.daily_quotes.create!(
 							transaction_date: date,
 							trade_volume: row[2],
 							number_of_transactions: row[3],

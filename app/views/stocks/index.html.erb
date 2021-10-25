@@ -1,0 +1,12 @@
+<h1>已下載股票清單</h1>
+<ul>
+	<% @stock_lists.each do |stock| %>
+		<li>
+			<%= stock.code %>
+			<%= stock.name %>
+		</li>
+	<% end %>
+</ul>
+
+<%== pagy_bootstrap_nav(@pagy) %>
+
