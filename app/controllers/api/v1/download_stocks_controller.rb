@@ -1,6 +1,6 @@
 class Api::V1::DownloadStocksController < ApplicationController
 	def show
-		@dates = DailyQuote.select(:transaction_date).distinct
+		@downloaded_dates = DailyQuote.select(:transaction_date).distinct
 	end
 
 	def create
