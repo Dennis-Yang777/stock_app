@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  root "stock_download#show"
+  root "api/v1/download_stocks#show"
 
-  resource :stock_download do
-    collection do
-      post 'mutiple_create', to: 'stock_downloads#create_with_mutiple_time'
+  namespace :api do
+    namespace :v1 do
+      resource :download_stocks, only: %w[show create]
     end
   end
 

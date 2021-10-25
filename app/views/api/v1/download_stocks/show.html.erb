@@ -1,0 +1,32 @@
+<h1>歡迎來下載股票資訊</h1>
+
+<%= form_with url: api_v1_download_stocks_path, method: 'POST' do |f| %>
+	設定日期區間：
+	<%= f.date_field :start_on, min: "2004-02-11", 
+															max: Date.today - 1.days, 
+															value: Date.today - 1.days %>～
+	<%= f.date_field :end_on, min: "2004-02-12", 
+														max: Date.today, 
+														value: Date.today %>
+	<%= f.submit "篩選" %>
+<% end %>
+
+<%= link_to '股票清單', stocks_path %>
+
+
+<p>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+    已下載日期
+  </button>
+</p>
+<div style="min-height: 120px;">
+  <div class="collapse collapse-horizontal" id="collapseWidthExample">
+    <div class="card card-body" style="width: 300px;">
+      <ul class="list-group">
+				<% @dates.each do |date| %>
+					<li class="list-group-item"><%= date.transaction_date %></li>
+				<% end %>
+			</ul>
+    </div>
+  </div>
+</div>

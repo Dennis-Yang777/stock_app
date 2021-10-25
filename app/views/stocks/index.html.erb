@@ -1,12 +1,21 @@
-<h1>已下載股票清單</h1>
-<ul>
-	<% @stock_lists.each do |stock| %>
-		<li>
-			<%= stock.code %>
-			<%= stock.name %>
-		</li>
-	<% end %>
-</ul>
+<%= link_to '返回上一頁', root_path %>
+<h1>股票清單</h1>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">代號</th>
+			<th scope="col">股名</th>
+		</tr>
+	</thead>
+  <tbody>
+		<% @stock_lists.each do |stock| %>
+			<tr>
+				<td><%= link_to stock.code, stock_path(stock) %></td>
+				<td><%= stock.name %></td>
+			</tr>
+		<% end %>
+  </tbody>
+</table>
 
 <%== pagy_bootstrap_nav(@pagy) %>
 

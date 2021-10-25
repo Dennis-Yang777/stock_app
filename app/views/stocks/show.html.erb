@@ -1,0 +1,25 @@
+<%= link_to '返回上一頁', stocks_path %>
+<h1>單一股票每日股價</h1>
+<h3><%= @stock.name %></h3>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">日期</th>
+			<th scope="col">收盤價</th>
+			<th scope="col">交易量</th>
+			<th scope="col">本益比</th>
+		</tr>
+	</thead>
+  <tbody>
+		<% @stock.daily_quotes.each do |quote| %>
+			<tr>
+				<td><%= quote.transaction_date %></td>
+				<td><%= quote.closing_price %></td>
+				<td><%= quote.trade_volume %></td>
+				<td><%= quote.price_earning_ratio %></td>
+			</tr>
+		<% end %>
+  </tbody>
+</table>
+
+	
