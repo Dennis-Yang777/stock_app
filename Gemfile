@@ -33,6 +33,7 @@ gem 'paranoia', '~> 2.4', '>= 2.4.3'
 gem 'daru', '~> 0.3'
 gem 'pagy', '~> 4.11'
 gem 'simple_calendar', '~> 2.4', '>= 2.4.3'
+gem 'chartkick', '~> 4.1'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
