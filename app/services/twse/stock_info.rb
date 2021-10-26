@@ -26,7 +26,7 @@ module Twse
 				@dataframe.delete_vectors(0)
 				# 每一天的資料用一次transation包住
 				ActiveRecord::Base.transaction do
-					@dataframe.map_vectors{ |row|
+					@dataframe.map_vectors do |row|
 						Stock.exists?(code: row[0]) ? 
 						stock = Stock.find_by(code: row[0]) : 
 						stock = Stock.create(code: row[0], name: row[1])
@@ -48,9 +48,9 @@ module Twse
 							last_best_ask_volume: row[14],
 							price_earning_ratio: row[15]
 						)
-					}
+					end
 				end
-				"Save into db."
+				"Data were saved into db"
 			else
 				"Data already exists"
 			end

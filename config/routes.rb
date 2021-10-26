@@ -7,5 +7,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :stocks
+  resources :stocks, only: %W[index show] do
+    collection do
+      get 'search', to: 'stocks#search'
+    end
+  end
 end
